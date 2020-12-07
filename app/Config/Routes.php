@@ -32,9 +32,9 @@ $routes->setAutoRoute(true);
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index');
 $routes->get('/inicio', 'Home::inicio');
-$routes->get('/listado', 'Home::listado');
 $routes->post('/login', 'Home::login');
 $routes->get('/salir', 'Home::salir');
+$routes->post('/crear', 'Home::crear');
 $routes->get('/obtenerNombre/(:any)', 'Home::obtenerNombre/$1');
 $routes->get('/eliminar/(:any)', 'Home::eliminar/$1');
 $routes->post('/crear', 'Home::crear');

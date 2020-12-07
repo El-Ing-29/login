@@ -2,36 +2,37 @@
 
 use CodeIgniter\Database\Migration;
 
-class TUsuarios extends Migration
+class TGastos extends Migration
 {
-	 public function up()
+	public function up()
         {
                 $this->forge->addField([
-                        'id_usuario'          => [
+                        'id_gasto'          => [
                                 'type'           => 'INT',
                                 'constraint'     => 5,
                                 'unsigned'       => true,
                                 'auto_increment' => true,
                         ],
-                        'usuario'       => [
+                        'concepto'       => [
                                 'type'           => 'VARCHAR',
                                 'constraint'     => '255',
                         ],
-                        'password' => [
+                        'monto'       => [
                                 'type'           => 'VARCHAR',
-                                'constraint'           => '255',
+                                'constraint'     => '255',
                         ],
-                        'type' => [
+
+                        'fecha'       => [
                                 'type'           => 'VARCHAR',
-                                'constraint'           => '255',
+                                'constraint'     => '255',
                         ],
                 ]);
-                $this->forge->addKey('id_usuario', true);
-                $this->forge->createTable('t_usuario');
+                $this->forge->addKey('id_gasto', true);
+                $this->forge->createTable('t_gasto');
         }
 
         public function down()
         {
-                $this->forge->dropTable('t_usuario');
+                $this->forge->dropTable('t_gasto');
         }
 }

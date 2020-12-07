@@ -1,5 +1,6 @@
 <?php namespace App\Controllers;
 	use App\Models\Usuarios;
+	use App\Models\Gastos;
 class Home extends BaseController
 {
 	public function index()
@@ -22,9 +23,26 @@ class Home extends BaseController
 		return view('listado', $data);
 	}
 
-	public function inicio(){
+	/*public function inicio(){
 		return view('inicio');
+	}*/
+	public function inicio(){
+		$Crud = new Gastos();
+		$datos = $Crud->listarGastos();
+		$mensaje = session('mensaje');
+		$data = [
+					"datos" => $datos,
+					"mensaje" => $mensaje
+				];
+
+		return view('inicio', $data);
 	}
+	/*public function listado(){
+		return redirect()->to(base_url().'/listado');
+	}*/
+
+
+
 	
 	public function login(){
 		$usuario = $this->request->getPost('usuario');
@@ -36,6 +54,10 @@ class Home extends BaseController
 		if (count($datosUsuario) > 0 && password_verify($password, $datosUsuario[0]['password'])) {
 
 			$data =[
+
+				"nombre" => $datosUsuario[0]['nombre'],
+				"a_paterno" => $datosUsuario[0]['a_paterno'],
+				"email" => $datosUsuario[0]['email'],
 				"usuario" => $datosUsuario[0]['usuario'],
 				"type" => $datosUsuario[0]['type']
 
@@ -59,54 +81,35 @@ class Home extends BaseController
 	}
 
 	public function crear(){
-
-      //print_r($_POST);
 		$datos = [
-
-					"nombre" => $_POST['nombre'],
-					"paterno" => $_POST['paterno'],
-					"materno" => $_POST['materno']
+					"concepto" => $_POST['concepto'],
+					"monto" => $_POST['monto'],
+					"fecha" => $_POST['fecha']
 				 ];
-
-		$Crud = new CrudModel();
+		$Crud = new Gastos();
 		$respuesta = $Crud->insertar($datos);
 
-		if ($respuesta > 0) {
-			return redirect()->to(base_url().'/')->with('mensaje','1');
+		if ($respuesta > 0){
+			return redirect()->to(base_url().'/inicio')->with('mensaje','1');
 		}else{
-			return redirect()->to(base_url().'/')->with('mensaje','0');
+			return redirect()->to(base_url().'/inicio')->with('mensaje','0');
 		}
 
 	}
-	public function actualizar(){
-		$datos = [
-					"nombre" => $_POST['nombre'],
-					"paterno" => $_POST['paterno'],
-					"materno" => $_POST['materno']
-				 ];
-
-		$idNombre = $_POST['idNombre'];
+	public function obtenerGasto($idNombre){
+		$data = ["id_nombre" => $idNombre];
 		$Crud = new CrudModel();
-		$respuesta = $Crud->actualizar($datos, $idNombre);
+		$respuesta = $Crud->obtenerGasto($data);
 
-		if ($respuesta) {
-			return redirect()->to(base_url().'/')->with('mensaje','2');
-		}else{
-			return redirect()->to(base_url().'/')->with('mensaje','3');
-		}
+		$datos = ["datos"=>$respuesta];
 
-	}
-
-
-	public function obtenerNombre($idNombre){
-		$data =["id_nombre" => $idNombre];
-		$Crud = new CrudModel();
-		$respuesta = $Crud->obtenerNombre($data); 
-
-		$datos = ["datos" => $respuesta];
 		return view('actualizar', $datos);
-		
 	}
+	
+
+
+
+	
 	public function eliminar($idNombre){
 		$Crud = new CrudModel();
 		$data = ["id_nombre" => $idNombre];

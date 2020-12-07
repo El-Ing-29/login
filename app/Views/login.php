@@ -22,6 +22,16 @@
   	<form method="POST" action="<?php echo base_url().'/login' ?>" class="form-register">
   		<h1 class="form_titulo">Login con codeigniter 4</h1>
     		<div class="contenedor-inputs">
+                <label for="nombre">Nombre</label>
+                <br>
+                <input type="text" name="nombre" id="nombre" class="input-100" placeholder="Nombre" required="">
+
+                <label for="usuario">Apellido Paterno</label>
+                <br>
+                <input type="text" name="a_paterno" id="a_paterno" class="input-100" placeholder="Apellido Paterno" required="">
+                <label for="usuario">Email</label>
+                <br>
+                <input type="text" name="email" id="email" class="input-100" placeholder="Ejemplo:xxx@gmail.com" required="">
                 <label for="usuario">Usuario</label>
                 <br>
                 <input type="text" name="usuario" id="usuario" class="input-100" placeholder="Usuario" required="">
@@ -30,7 +40,7 @@
                 <input type="password" name="password" id="password" class="input-100" placeholder="Contraseña" required="">
                 <br>
                 <button aling="center" class="btn_enviar">Entrar</button>
-                <p class="form_link">¿Ya tienes una cuenta?<a href="<?= base_url() ?>/listado">REGISTRAR</a></p>
+                <p class="form_link">¿Ya tienes una cuenta?<a href="<?php echo base_url().'/listado' ?>">REGISTRAR</a></p>
     </form>
             </div>
             <div class="col-sm-4"></div>  
